@@ -10,3 +10,5 @@ video.o
 video.map
 
 video.sym
+
+*.gbv
