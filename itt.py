@@ -34,14 +34,14 @@ previous_frequencies = [None] * 3
 
 for line in music:
     instruments = line[1:].split("|")
-    
+
     # Instruments 1 & 2
     for index, instrument in enumerate(instruments[0:2]):
         note = instrument[0:3]
         volume = instrument[6:8]
         command = instrument[8]
         command_value = instrument[9:11]
-        
+
         if note == "===":
             volume = "00"
             command = "."
@@ -49,24 +49,24 @@ for line in music:
         elif note != "...":
             if volume == "..":
                 volume = "64"
-        
+
         if volume != "..":
             if pending_delay >= 1:
                 sys.stdout.write("\x90")
                 sys.stdout.write(chr(int(pending_delay)))
                 pending_delay %= 1
-        
+
             volume = int(volume)
             volume = int(round(volume / 64.0 * 0xF))
             sys.stdout.write("\x12" if index == 0 else "\x17")
             sys.stdout.write(chr(volume * 0x10))
-        
+
         if note != "...":
             if pending_delay >= 1:
                 sys.stdout.write("\x90")
                 sys.stdout.write(chr(int(pending_delay)))
                 pending_delay %= 1
-            
+
             frequency = note_to_frequency(note)
             previous_frequencies[index] = frequency
             gb_frequency = int(round(2048 - 131072/frequency))
@@ -75,7 +75,7 @@ for line in music:
             sys.stdout.write(chr(gb_frequency & 0xFF))
             sys.stdout.write("\x14" if index == 0 else "\x19")
             sys.stdout.write(chr((gb_frequency / 0x100) | 0x80)) # 80 = Init sound
-        
+
         if command == "F":
             if pending_delay >= 1:
                 sys.stdout.write("\x90")
@@ -89,7 +89,7 @@ for line in music:
             sys.stdout.write(chr(gb_frequency & 0xFF))
             sys.stdout.write("\x14" if index == 0 else "\x19")
             sys.stdout.write(chr((gb_frequency / 0x100)))
-        
+
         if command == "E":
             if pending_delay >= 1:
                 sys.stdout.write("\x90")
@@ -103,18 +103,18 @@ for line in music:
             sys.stdout.write(chr(gb_frequency & 0xFF))
             sys.stdout.write("\x14" if index == 0 else "\x19")
             sys.stdout.write(chr((gb_frequency / 0x100)))
-    
+
     # Instrument 3
     note = instruments[2][0:3]
     command = instruments[2][8]
     command_value = instruments[2][9:11]
-    
+
     if note != "...":
         if pending_delay >= 1:
             sys.stdout.write("\x90")
             sys.stdout.write(chr(int(pending_delay)))
             pending_delay %= 1
-        
+
         if note == "===":
             sys.stdout.write("\x1A\x00") # Channel Off
         else:
@@ -130,15 +130,13 @@ for line in music:
                 sys.stdout.write(chr((gb_frequency / 0x100) | 0x80)) # 80 = Init sound
             except:
                 sys.stderr.write(line+"\n")
-                
+
     if command == "F":
         if pending_delay >= 1:
             sys.stdout.write("\x90")
             sys.stdout.write(chr(int(pending_delay)))
             pending_delay %= 1
-        sys.stderr.write("Before: %s\n" % (previous_frequencies[2]))
         previous_frequencies[2] *= SLIDE_MAGIC ** int(command_value)
-        sys.stderr.write("After:  %s\n" % (previous_frequencies[2]))
         frequency = previous_frequencies[2]
         gb_frequency = int(round(2048 - 131072/frequency))
         assert gb_frequency < 2048
@@ -146,15 +144,13 @@ for line in music:
         sys.stdout.write(chr(gb_frequency & 0xFF))
         sys.stdout.write("\x1E")
         sys.stdout.write(chr((gb_frequency / 0x100)))
-    
+
     if command == "E":
         if pending_delay >= 1:
             sys.stdout.write("\x90")
             sys.stdout.write(chr(int(pending_delay)))
             pending_delay %= 1
-        sys.stderr.write("Before: %s\n" % (previous_frequencies[2]))
         previous_frequencies[2] /= SLIDE_MAGIC ** int(command_value)
-        sys.stderr.write("After:  %s\n" % (previous_frequencies[2]))
         frequency = previous_frequencies[2]
         gb_frequency = int(round(2048 - 131072/frequency))
         assert gb_frequency < 2048
@@ -162,9 +158,9 @@ for line in music:
         sys.stdout.write(chr(gb_frequency & 0xFF))
         sys.stdout.write("\x1E")
         sys.stdout.write(chr((gb_frequency / 0x100)))
-            
+
     pending_delay += ticks_per_line
-    
+
     # Instrument 4
     sample = instruments[3][:5]
     if sample in DRUMS:

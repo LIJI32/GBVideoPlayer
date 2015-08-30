@@ -1,2 +1,12 @@
 
 *.pyc
+
+music.gbm
+
+video.gbc
+
+video.o
+
+video.map
+
+video.sym
