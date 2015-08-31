@@ -1,9 +1,9 @@
 # Player
 
-This is a technical demo demonstrating how the Gameboy LCD controller can be hacked to make a Gameboy Color play a full motion video in color, together with music. It is inspired by [8086 Corruption](http://www.youtube.com/watch?v=H1p1im_2uf4) and [8086 Domination](http://www.youtube.com/watch?v=MWdG413nNkI).
+This is a technical demo demonstrating how the Gameboy LCD controller can be hacked to make a Gameboy Color play a full motion video in color, together with music. It is inspired by [8088 Corruption](http://www.youtube.com/watch?v=H1p1im_2uf4) and [8088 Domination](http://www.youtube.com/watch?v=MWdG413nNkI).
 
 ## tl;dr
-Here's a video of a [Gameboy Color playing the Pokémon TV Opening](http://www.youtube.com/watch?v=b6jtn71MWFI). You can get the ROM at [the releases page](https://github.com/LIJI32/GBVideoPlayer/releases) and run it on your Gameboy Color with a flash cart or an emulator with good accuracy like BGB.
+Here's a video of a [Gameboy Color playing the Pokémon TV Opening](http://www.youtube.com/watch?v=c5HfmaDCVsY). You can get the ROM at [the releases page](https://github.com/LIJI32/GBVideoPlayer/releases) and run it on your Gameboy Color with a flash cart or an emulator with good accuracy like BGB. You will need to turn on inter-frame blending in the emulator for accurate results.
 
 ## Technical Specifications
 The player itself, due to the high optimization requirements and CPU cycle counting, is written in Z80 assembly. The video encoder has two stage, with the first once being a batch script run by Photoshop, and the other being a python script. The music is written in an OpenMPT-style textual format, which is later converted to a compact binary format which is easy to play.
@@ -24,7 +24,7 @@ The video format has the following properties:
 Any MBC5-capable cart that is big enough to store the ROM should be enough. It was tested only on an original Gameboy Color (And only one to be honest), but will probably work on a Gameboy Advance too.
 
 ## Emulator support
-Due to exploiting hardware hacks and very precise timing, the player hardly works on any emulator. BGB is the only one capable of reasonably emulating the player, and it's still not perfect. There used to be another emulator (forgot its name, sorry!) that could run it; however, I had to make a choice between supporting it and supporting BGB, as a single opcode change would break it for one and fix it for the other, and the other emulator did not have any debugger.
+Due to exploiting hardware hacks and very precise timing, the player hardly works on any emulator. BGB is the only one capable of reasonably emulating the player, and it's still not perfect. There used to be another emulator (forgot its name, sorry!) that could run it; however, I had to make a choice between supporting it and supporting BGB, as a single opcode change would break it for one and fix it for the other, and the other emulator did not have any debugger. For best results, use an emulator that support inter-frame blending.
 
 ## Compilation
 You will need [rgbds](https://github.com/bentley/rgbds/releases/). To compile a player playing the Pokémon TV Opening, run:
