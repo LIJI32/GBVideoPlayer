@@ -10,7 +10,7 @@ The player itself, due to the high optimization requirements and CPU cycle count
 
 The Gameboy Color uses a 8MHz Z80 8-bit processor, which effectively runs at 2MHz (Since the CPI of each instruction is a multiple of 4). To play the Pokémon theme in a good quality (I.e. not too many frame skips) it requires a 7.6MB ROM, which is huge in Gameboy terms. The LCD controller (OAMs are ignored by the player) is designed output, in 60 FPS, a 160x144 image, composed of a map of 32x32 tiles size 8x8, each can have a 4-color palette from a selection of user-defined 8 palette. It does not allow direct pixel access. Since the player uses less than 20 bytes of RAM (slight stack use and a very small state), memory is not an issue.
 
-There's an article explaining [How It Works](How+It+Works.md).
+There's an article explaining [How It Works](How%20It%20Works.md).
 
 The video format has the following properties:
 
