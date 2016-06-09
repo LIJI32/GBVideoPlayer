@@ -24,7 +24,7 @@ The video format has the following properties:
 Any MBC5-capable cart that is big enough to store the ROM should be enough. It was tested only on an original Gameboy Color (And only one to be honest), but will probably work on a Gameboy Advance too.
 
 ## Emulator support
-Due to exploiting hardware hacks and very precise timing, the player hardly works on any emulator. BGB is the only one capable of reasonably emulating the player, and it's still not perfect. There used to be another emulator (forgot its name, sorry!) that could run it; however, I had to make a choice between supporting it and supporting BGB, as a single opcode change would break it for one and fix it for the other, and the other emulator did not have any debugger. For best results, use an emulator that support inter-frame blending.
+Due to exploiting hardware hacks and very precise timing, the player works only on a few emulators. BGB was the first one capable of reasonably emulating the player, and it's still wasn't perfect. Additonally, Higan 0.97 and [SameBoy](https://github.com/LIJI32/SameBoy) now support it too. During development, there used to be another emulator (forgot its name, sorry!) that could run it; however, I had to make a choice between supporting it and supporting BGB, as a single opcode change (removing or adding a nop in the STAT interrupt) would break it for one and fix it for the other, and the other emulator did not have any debugger. For best results, use an emulator that support inter-frame blending.
 
 ## Compilation
 You will need [rgbds](https://github.com/bentley/rgbds/releases/). To compile a player playing the Pokémon TV Opening, run:
